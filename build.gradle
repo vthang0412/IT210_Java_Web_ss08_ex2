@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'com'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.13.2'
+}
+
+sourceCompatibility = '21'
+targetCompatibility = '21'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
+    // Source: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    implementation("org.springframework:spring-webmvc:7.0.6")
+
+    implementation 'org.thymeleaf:thymeleaf-spring6:3.1.2.RELEASE'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.4.0'
+
+    // Source: https://mvnrepository.com/artifact/com.cloudinary/cloudinary-http44
+    implementation group: 'com.cloudinary', name: 'cloudinary-http44', version: '1.39.0'
+
+    implementation 'jakarta.validation:jakarta.validation-api:4.0.0-M1'
+    implementation 'org.hibernate.validator:hibernate-validator:9.1.0.Final'
+    implementation 'org.glassfish:jakarta.el:5.0.0-M1'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
